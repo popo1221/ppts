@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="/node_modules/reveal.js/css/reveal.css">
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/beige.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/black.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/blood.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/league.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/moon.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/night.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/serif.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/simple.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/sky.css"> -->
+        <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/solarized.css">
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/white.css"> -->
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>Airbnb Javascript Style Guide</h1>
+                </section>
+                <section>
+                    <section>
+                        <h2>什么是代码规范？</h2>
+                    </section>
+                    <section>
+                        <h2>如何执行代码规范？</h2>
+                    </section>
+                </section>
+                <section>
+                        <section>
+                            <h2>主要内容</h2>
+                            <p>
+                                Types, References, Objects, Arrays, Destructuring, Strings, Functions, Arrow Functions,
+                                Classes & Constructors, Modules, Iterators and Generators, Properties, Variables, Hoisting, 
+                                Comparison Operators & Equality, Blocks, Control Statements, Comments, Whitespace, Commas,
+                                Semicolons, Type Casting & Coercion, Naming Conventions, Accessors, Events, jQuery
+                            </p>
+                        </section>
+                        <section>
+                            <h2>References</h2>
+                            <pre class=""><code>// bad
+var a = 1;
+var b = 2;</code></pre><pre class="fragment"><code>// good
+let a = 1;
+let b = 2;</code></pre><pre class="fragment"><code>// good
+const a = 1;
+const b = 2;</code></pre>    
+                        </section>
+                        <section>
+                                <h2>References</h2>
+                                <pre class=""><code>// bad
+const item = new Object();
+const arr = new Array();</code></pre><pre class="fragment"><code>// good
+const item = {};
+const arr = [];</code></pre> 
+                        </section>
+                        <section>
+                            <h2>Objects</h2>
+                            <pre><code>function getKey(k) {
+    return `a key named ${k}`;
+}
+
+// bad
+const obj = {
+    id: 5,
+    name: 'San Francisco',
+};
+obj[getKey('enabled')] = true;</code></pre><pre class="fragment"><code>// good
+const obj = {
+    id: 5,
+    name: 'San Francisco',
+    [getKey('enabled')]: true,
+};</code></pre> 
+                    </section>
+                    <section>
+                        <h2>Objects</h2>
+                        <pre class=""><code>// bad
+const atom = {
+    value: 1,
+
+    addValue: function (value) {
+    return atom.value + value;
+    },
+};</code></pre><pre class="fragment"><code>// good
+const atom = {
+    value: 1,
+
+    addValue(value) {
+    return atom.value + value;
+    },
+};</code></pre> 
+                    </section>
+
+                    <section>
+                            <h2>Objects</h2>
+                            <pre class=""><code>const lukeSkywalker = 'Luke Skywalker';
+// bad
+const obj = {
+    lukeSkywalker: lukeSkywalker,
+};</code></pre><pre class="fragment"><code>// good
+const obj = {
+    lukeSkywalker,
+};</code></pre> 
+                    </section>
+
+                    <section>
+                            <h2>Objects</h2>
+                            <pre class=""><code>// bad
+console.log(object.hasOwnProperty(key));</code></pre><pre class="fragment"><code>// good
+console.log(Object.prototype.hasOwnProperty.call(object, key));</code></pre>
+                            <pre class="fragment"><code>// best
+const has = Object.prototype.hasOwnProperty; // cache the lookup once, in module scope.
+/* or */
+import has from 'has';
+// ...
+console.log(has.call(object, key));</code></pre>
+                    </section>
+                    <section>
+                        <h2>Arrays</h2>
+                        <pre><code>// bad
+const len = items.length;
+const itemsCopy = [];
+let i;
+
+for (i = 0; i < len; i += 1) {
+    itemsCopy[i] = items[i];
+}</code></pre>
+                                <pre class="fragment"><code>// good
+const itemsCopy = [...items];</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>String</h2>
+                        <pre><code>// bad
+const errorMessage = 'This is a super long error that was thrown because \
+of Batman. When you stop to think about how Batman had anything to do \
+with this, you would get nowhere \
+fast.';
+                                </code></pre>
+                                <pre><code>// bad
+const errorMessage = 'This is a super long error that was thrown because ' +
+    'of Batman. When you stop to think about how Batman had anything to do ' +
+    'with this, you would get nowhere fast.';</code></pre>
+                                <pre class="fragment"><code>// good
+const errorMessage = 'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had anything to do with this, you would get nowhere fast.';
+</code></pre>
+                    </section>
+                    <section>
+                        <h2>Functions</h2>
+                        <pre><code>// bad
+if (currentUser) {
+    function test() {
+    console.log('Nope.');
+    }
+}</code></pre>
+                <pre class="fragment"><code>// good
+let test;
+if (currentUser) {
+    test = () => {
+    console.log('Yup.');
+    };
+}</code></pre>
+                    </section>
+                    <section>
+                        <h2>Functions</h2>
+                        <pre><code>// really bad
+function handleThings(opts) {
+    // No! We shouldn’t mutate function arguments.
+    // Double bad: if opts is falsy it'll be set to an object which may
+    // be what you want but it can introduce subtle bugs.
+    opts = opts || {};
+    // ...
+}
+
+// still bad
+function handleThings(opts) {
+    if (opts === void 0) {
+    opts = {};
+    }
+    // ...
+}
+</code></pre>
+                <pre class="fragment"><code>// good
+function handleThings(opts = {}) {
+    // ...
+}</code></pre>
+                    </section>
+                    <section>
+                        <h2>Functions</h2>
+                        <pre><code>// bad - unnecessary function call
+function checkName(hasName) {
+    const name = getName();
+
+    if (hasName === 'test') {
+    return false;
+    }
+
+    if (name === 'test') {
+    this.setName('');
+    return false;
+    }
+
+    return name;
+}</code></pre>      
+                <pre class="fragment"><code>// good
+function checkName(hasName) {
+    if (hasName === 'test') {
+    return false;
+    }
+
+    const name = getName();
+
+    if (name === 'test') {
+    this.setName('');
+    return false;
+    }
+
+    return name;
+}</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Variables</h2>
+                        <pre><code>// Bad
+let a = b = c = 1;</code></pre>
+                    </section>
+                    <section>
+                        <pre><code>// bad
+if (isValid === true) {
+    // ...
+}
+
+let name = '';
+if (name) {
+    // ...
+}
+
+if (collection.length) {
+    // ...
+}</code></pre>
+        <pre class="fragment"><code>// good
+if (isValid) {
+    // ...
+}
+
+if (name !== '') {
+    // ...
+}
+
+if (collection.length > 0) {
+    // ...
+}
+</code></pre>
+
+                    </section>
+                    <section>
+                        <pre><code>// bad
+const foo = a ? a : b;
+const bar = c ? true : false;
+const baz = c ? false : true;</code></pre>
+<pre class="fragment"><code>// good
+const foo = a || b;
+const bar = !!c;
+const baz = !c;</code></pre>
+                    </section>
+                    <section>
+                        <pre><code>// bad
+const foo = a && b < 0 || c > 0 || d + 1 === 0;
+const bar = a ** b - 5 % d;
+if (a || b && c) {
+    return d;
+}</code></pre>
+<pre class="fragment"><code>// good
+const foo = (a && b < 0) || c > 0 || (d + 1 === 0);
+const bar = (a ** b) - (5 % d);
+if ((a || b) && c) {
+    return d;
+}</code></pre>
+                    </section>
+                    <section>
+                        <h2>jQuery</h2>
+                        <pre><code>// bad
+$('#items').find('.selected').highlight().end().find('.open').updateCount();
+$('#items').
+    find('.selected').
+        highlight().
+        end().
+    find('.open').
+        updateCount();
+const leds = stage.selectAll('.led').data(data).enter().append('svg:svg').classed('led', true)
+    .attr('width', (radius + margin) * 2).append('svg:g')
+    .attr('transform', `translate(${radius + margin},${radius + margin})`)
+    .call(tron.led);</code></pre>
+                    </section>
+                    <section>
+                            <pre><code>// good
+$('#items')
+    .find('.selected')
+        .highlight()
+        .end()
+    .find('.open')
+        .updateCount();
+        const leds = stage.selectAll('.led')
+        .data(data)
+    .enter().append('svg:svg')
+        .classed('led', true)
+        .attr('width', (radius + margin) * 2)
+    .append('svg:g')
+        .attr('transform', `translate(${radius + margin},${radius + margin})`)
+        .call(tron.led);
+const leds = stage.selectAll('.led').data(data);</code></pre>
+                    </section>
+                    <section>
+                        <pre><code>//bad
+const sidebar = $('.sidebar');
+
+$('ul', '.sidebar').hide();
+$('.sidebar').find('ul').hide();</code></pre>
+                        <pre class="fragment"><code>// good
+const $sidebar = $('.sidebar');
+const $sidebarBtn = $('.sidebar-btn');
+
+$('.sidebar ul').hide();
+$('.sidebar > ul').hide();
+$sidebar.find('ul').hide();</code></pre>
+                    </section>
+                </section>
+                <section>
+                    <h2>其他的JS代码规范</h2>
+                    <p>Google Javascript Style Guide</p>
+                    <p>Idiomatic Javascript Style Guide</p>
+                    <p>Javascript Standard Style Guide</p>
+                    <p>jQuery Javascript Style Guide</p>
+                </section>
+                <section>
+                    
+                </section>
+            </div>
+        </div>
+        <script src="/node_modules/reveal.js/js/reveal.js" charset="utf-8"></script>
+        <script>
+            Reveal.initialize();
+        </script>
+    </body>
+</html>

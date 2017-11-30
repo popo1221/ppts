@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="/node_modules/reveal.js/css/reveal.css">
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/beige.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/black.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/blood.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/league.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/moon.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/night.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/serif.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/simple.css"> -->
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/sky.css"> -->
+        <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/solarized.css">
+        <!-- <link rel="stylesheet" href="/node_modules/reveal.js/css/theme/white.css"> -->
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>Git基础知识讲解</h1>
+                </section>
+                <section>
+                    <section>
+                        <h2>分布式 VS 集中式</h2>
+                        <h2>Git常见操作</h2>
+                        <h2>Git flow工作流</h2>
+                        <h2>Git常见问题解决</h2>
+                    </section>                    
+                </section>
+                <section>
+                    <h2>Git常见操作</h2>
+                    <p>代码库</p>
+                    <p>配置</p>
+                    <p>增加/删除文件</p>
+                    <p>代码提交</p>
+                    <p>分支</p>
+                    <p>标签</p>
+                    <p>查看信息</p>
+                    <p>远程同步</p>
+                    <p>撤销</p>
+                </section>
+                <section>
+                    <section><h2>代码库</h2></section>
+                    <section>
+                        <p>将已有目录初始化成一个Git代码库</p>
+                        <pre><code>git init</code></pre>
+                    </section>
+                    <section>
+                        <p>新建一个目录，并将其初始化为Git代码库</p>
+                        <pre><code>git init [project-name]</code></pre>
+                    </section>
+                    <section>
+                        <p>克隆仓库</p>
+                        <pre><code>git clone [url]</code></pre>
+                        <pre class="fragment"><code>git clone [url] dir</code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>配置</h2>
+                    </section>
+                    <section>
+                        <p>显示当前的Git配置</p>
+                        <pre><code># 显示当前仓库配置
+git config --list</code></pre>
+                        <pre><code># 显示全局配置
+git config --list --global</code></pre>
+                    </section>
+                    <section>
+                        <p>设置配置项</p>
+                        <pre><code>git config --global user.name "gabel"
+git config --global user.email "linwei.peng@envisioncn.com"</code></pre>
+                    </section>
+                    <section>
+                        <p>编辑配置</p>
+                        <pre><code>git config -e [--global]</code></pre>
+                    </section>
+                    <section><img src="git-config.png" alt=""></section>
+                </section>
+                <section>
+                    <section><h2>添加/删除文件</h2></section>
+                    <section>
+                        <p>添加指定文件或者目录到暂存区</p>
+                        <pre><code>git add file1
+git add file1 file2 file3 ....
+git add dir1</code></pre>
+                    </section>
+                    <section>
+                        <p>添加所有文件到暂存区</p>
+                        <pre><code>git add .</code></pre>
+                    </section>
+                    <section>
+                        <p>将文件从工作区删除，并且添加到暂存区</p>
+                        <pre><code>git rm file1 file2 dir1</code></pre>
+                    </section>
+                    <section>
+                        <p>改名文件</p>
+                        <pre><code>git mv file1 file2</code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section><h2>代码提交</h2></section>
+                    <section>
+                        <p>提交暂存区到仓库区</p>
+                        <pre><code>git commit -m message</code></pre>
+                    </section>
+                    <section>
+                        <p>提交暂存区的指定文件到仓库区</p>
+                        <pre><code>git commit file1 file2 ... -m message</code></pre>
+                    </section>
+                    <section>
+                        <p>提交工作区自上次commit之后的变化，直接到仓库区</p>
+                        <pre><code>git commit -a</code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section><h2>分支</h2></section>
+                    <section>
+                        <p>查看本地分支</p>
+                        <pre><code>git branch</code></pre>
+                    </section>
+                    <section>
+                        <p>查看远程分支</p>
+                        <pre><code>git branch -r</code></pre>
+                    </section>
+                    <section>
+                        <p>查看所有分支（包括远程分支）</p>
+                        <pre><code>git br -a</code></pre>
+                    </section>
+                    <section>
+                        <p>新建一个分支，并切换到新分支</p>
+                        <pre><code>git checkout -b newBranch</code></pre>
+                    </section>
+                    <section>
+                        <p>新建一个分支，但依然停留在当前分支</p>
+                        <pre><code>git branch newBranch</code></pre>
+                    </section>
+                    <section>
+                        <p>切换到指定分支</p>
+                        <pre><code>git checkout branch</code></pre>
+                    </section>
+                    <section>
+                        <p>合并指定分支到当前分支</p>
+                        <pre><code>git merge branch</code></pre>
+                    </section>
+                    <section>
+                        <p>删除分支</p>
+                        <pre><code>git branch -d branch</code></pre>
+                    </section>
+                    <section>
+                        <p>除远程分支</p>
+                        <pre><code>git push origin --delete [branch-name]</code></pre>
+                        <pre><code>git branch -dr [remote/branch]</code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>标签（Tag）</h2>
+                    </section>
+                    <section>
+                        <p>查看tag</p>
+                        <pre><code>git tag</code></pre>
+                    </section>
+                    <section>
+                        <p>基于当前commit创建一个tag</p>
+                        <pre><code>git tag tagname</code></pre>
+                    </section>
+                    <section>
+                        <p>删除本地Tag</p>
+                        <pre><code>git tag -d tagname</code></pre>
+                    </section>
+                    <section>
+                        <p>删除远程tag</p>
+                        <pre><code>git push origin :refs/tags/tagname</code></pre>
+                    </section>
+                    <section>
+                        <p>查看tag信息</p>
+                        <pre><code>git show tagname</code></pre>
+                    </section>
+                    <section>
+                        <p>提交tag</p>
+                        <pre><code>git push origin tagname</code></pre>
+                    </section>
+                    <section>
+                        <p>切换到指定Tag</p>
+                        <pre><code>git checkout tagname</code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section><h2>查看信息</h2></section>
+                    <section>
+                        <p>查看变更</p>
+                        <pre><code>git status</code></pre>
+                    </section>
+                    <section>
+                        <p>查看变更记录</p>
+                        <pre><code>git log</code></pre>
+                    </section>
+                    <section>
+                        <p>显示commit历史，以及每次commit发生变更的文件</p>
+                        <pre><code>git log --stat</code></pre>
+                    </section>
+                    <section>
+                        <p>显示暂存区和工作区的差异</p>
+                        <pre><code>git diff</code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section><h2>远程同步</h2></section>
+                    <section>
+                        <p>下载远程仓库的所有变动</p>
+                        <pre><code>git fetch branchname</code></pre>
+                    </section>
+                    <section>
+                        <p>取回远程仓库的变化，并与本地分支合并</p>
+                        <pre><code>git pull [remote] [branch]</code></pre>
+                    </section>
+                    <section>
+                        <p>上传本地指定分支到远程仓库</p>
+                        <pre><code>git push [remote] [branch]</code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section><h2>撤销</h2></section>
+                    <section>
+                        <p>恢复暂存区的指定文件到工作区</p>
+                        <pre><code>git checkout file</code></pre>
+                    </section>
+                    <section>
+                        <p>恢复暂存区的所有文件到工作区</p>
+                        <pre><code>git checkout .</code></pre>
+                    </section>
+                    <section>
+                        <p>重置暂存区的指定文件，与上一次commit保持一致，但工作区不变</p>
+                        <pre><code>git reset [file]</code></pre>
+                    </section>
+                    <section>
+                        <p>重置当前分支的指针为指定commit，同时重置暂存区，但工作区不变</p>
+                        <pre><code>git reset --hard [commit]</code></pre>
+                    </section>
+                    <section>
+                        <p>暂时将未提交的变化移除，稍后再移入</p>
+                        <pre><code>git stash
+git stash pop</code></pre>
+                    </section>
+                </section>
+            </div>
+        </div>
+        <script src="/node_modules/reveal.js/js/reveal.js" charset="utf-8"></script>
+        <script>
+            Reveal.initialize();
+        </script>
+    </body>
+</html>
