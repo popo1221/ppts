@@ -183,6 +183,16 @@
                         <pre><code>git fetch origin</code></pre>
                         <pre><code>git reset --hard origin/master</code></pre>
                     </section>
+                    <section>
+                        <h2>删除暂存区里的文件</h2>
+                        <p>如果你想撤销错误添加到暂存区里的文件，可以输入以下命令</p>
+                        <pre><code>git rm --cache &lt;filename&gt;</code></pre>
+                        <p>将文件移出暂存区</p>
+                        <pre><code>git reset HEAD &lt;filename&gt;</code></pre>
+                        <p>删除暂存区和工作区的文件</p>
+                        <pre><code>git rm -f 文件名</code></pre>
+                        
+                    </section>
                 </section>
                 <section>
                     <section>
